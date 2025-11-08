@@ -1,132 +1,206 @@
-@charset "UTF-8";
+/* PALETA DE CORES:
+   - Fundo Principal (Moderno): #1E1E1E (Preto Fosco / Cinza Chumbo)
+   - Destaque/Primário (Chamativo): #FF6B6B (Vermelho/Coral Vibrante)
+   - Secundário/Botões: #FFD93D (Amarelo Mostarda Vivo)
+   - Texto: #F5F5F5 (Branco Sujo)
+*/
 
-*{
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding: 0px;
-    margin: 0px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body , html{
-    background-color: blueviolet;
-    height: 100vh;
-    width: 100vw;
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1E1E1E; /* Fundo Escuro Moderno */
+    color: #F5F5F5; /* Texto Claro */
+    line-height: 1.6;
 }
 
-main{
-    position: relative;
-    height: 100vh;
-    width: 100vw;
-}
-
-section#login{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    overflow: hidden;
-
-    background-color: white;
-    height: 500px;
-    width: 250px;
-    border-radius: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.521);
-
-    transition: width .5s, height .5s;
-}
-
-section#login > div#imagem{
-    display: block;
-    background: blueviolet url(../imagens/pexels-sevenstormphotography-575392.jpg) no-repeat;
-    background-size: cover;
-    height: 200px;
-}
-
-section#login > div#formulario{
-    display: block;
-    padding: 10px;
-}
-
-div#formulario > h1{
+/* 1. CABEÇALHO / HERO */
+.hero-section {
     text-align: center;
-    margin-bottom: 10px;
+    padding: 40px 20px;
+    background-color: #111111; /* Cor mais escura para o topo */
+    border-bottom: 5px solid #FF6B6B; /* Destaque Chamativo */
 }
 
-div#formulario > p{
-    font-size: 0.8em;
+.logo {
+    font-size: 2.8em;
+    color: #FFD93D; /* Amarelo Vibrante */
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-form > div.campo{
-    background-color: #5f2c82;
-    display: block;
-    width: 100%;
-    height: 40px;
-    border-radius: 8px;
-    margin: 5px 0px;
+.slogan {
+    font-size: 1.2em;
+    margin-top: 10px;
+    opacity: 0.8;
 }
 
-div.campo > label{
-    display: none;
-}
-
-div.campo > span{
+/* 2. CATEGORIAS (MENU PRINCIPAL) */
+.menu-categories {
+    padding: 30px 20px;
     text-align: center;
-    color: white;
-    font-size: 2em;
-    width: 20px;
-    padding: 5px;
 }
 
-div.campo > input{
-    background-color: #5ac7c3;
-    font-size: 0.9em;
-    width: calc(100% - 40px);
-    height: 100%;
-    border: 0px;
-    border-radius: 8px;
-    transform: translatex(50px);
-    transform: translateY(-11px);
-    margin-left: 5px;
-
+.menu-categories h2 {
+    color: #FF6B6B;
+    margin-bottom: 25px;
 }
 
-div.campo > input:focus-within{
-    background-color: white;
+.category-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-form > input[type=submit]{
-    display: block;
-    font-size: 1em;
-    width: 100%;
-    height: 40px;
-    background-color: #49a09d;
-    color: white;
+.category-btn {
+    background-color: #FFD93D; /* Botão Chamativo */
+    color: #1E1E1E;
     border: none;
-    border-radius: 5px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-form > input[type=submit]:hover{
-    background-color:  #3c8380;
+.category-btn i {
+    margin-right: 8px;
 }
 
-form > a.botao{
-    display: block;
+.category-btn:hover {
+    background-color: #FFC048; /* Efeito hover */
+    transform: translateY(-2px);
+}
+
+/* 3. SEÇÕES DE PRODUTOS */
+.menu-section {
+    padding: 30px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.menu-section h3 {
+    font-size: 2em;
+    color: #F5F5F5;
+    margin-bottom: 20px;
+    border-left: 5px solid #FF6B6B;
+    padding-left: 15px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background-color: #2c2c2c;
+    border-radius: 10px;
+    padding: 20px;
     text-align: center;
-    color:#2d6462;
-    font-size: 1em;
-    width: 100%;
-    height: 40px;
-    text-decoration: none;
-    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.product-card h4 {
+    color: #FFD93D;
+    margin: 10px 0;
+}
+
+.price {
+    display: block;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #FF6B6B;
+    margin: 15px 0;
+}
+
+/* 4. BOTÃO WHATSAPP */
+.whatsapp-btn {
+    display: inline-block;
+    background-color: #25D366; /* Verde WhatsApp */
+    color: white;
+    padding: 10px 20px;
     border-radius: 5px;
-    padding-top: 7px;
-    margin-top: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
-form > a.botao:hover{
-    background-color: #6cd3cf;
+.whatsapp-btn:hover {
+    background-color: #128C7E;
 }
 
-form > a.botao > span{
-    font-size: 0.9em;
+/* 5. VISIBILIDADE DE SEÇÃO (INTERATIVIDADE JS) */
+.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.active {
+    display: block;
+    opacity: 1;
+}
+
+/* 6. RODAPÉ / CONTATO */
+.contact-section {
+    background-color: #111111;
+    padding: 40px 20px;
+    text-align: center;
+    border-top: 5px solid #FF6B6B;
+    margin-top: 50px;
+}
+
+.contact-section h3 {
+    color: #FFD93D;
+    margin-bottom: 25px;
+}
+
+.contact-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.contact-item {
+    color: #F5F5F5;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: color 0.3s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-item i {
+    font-size: 2.5em;
+    margin-bottom: 8px;
+    color: #FF6B6B; /* Ícones Chamativos */
+}
+
+.contact-item:hover {
+    color: #FFD93D; /* Hover de Destaque */
+    transform: scale(1.05);
+}
+
+.copyright {
+    opacity: 0.6;
+    margin-top: 20px;
+}
+
+/* PLACEHOLDER */
+.placeholder {
+    text-align: center;
+    font-size: 1.5em;
+    color: #666;
+    padding: 50px;
 }
