@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Lanchonete Saborosa</title>
-    <!-- Google Fonts -->
+    <title>Cardápio Lanchonete do Zé</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
-    <!-- Icons (Font Awesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         /* Reset e Base */
@@ -17,7 +15,7 @@
         }
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            background: linear-gradient(135deg, #ff4757, #ffa502);
             color: #fff;
             min-height: 100vh;
             overflow-x: hidden;
@@ -43,7 +41,7 @@
         }
         .logo {
             font-family: 'Pacifico', cursive;
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: #fff;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
@@ -63,11 +61,11 @@
             transition: color 0.3s, transform 0.3s;
         }
         .nav-links a:hover {
-            color: #feca57;
+            color: #ffa502;
             transform: translateY(-3px);
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
             height: 100vh;
             display: flex;
@@ -83,7 +81,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.55);
         }
         .hero-content {
             position: relative;
@@ -103,7 +101,7 @@
             opacity: 0;
         }
         .cta-btn {
-            background: #feca57;
+            background: #ffa502;
             color: #333;
             padding: 1rem 2.5rem;
             border-radius: 50px;
@@ -117,10 +115,11 @@
         .cta-btn:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-            background: #ff9f43;
+            background: #ff6b6b;
+            color: #fff;
         }
 
-        /* Menu Section */
+        /* Menu */
         .menu {
             padding: 6rem 2rem;
             max-width: 1200px;
@@ -136,7 +135,7 @@
             content: '';
             width: 100px;
             height: 5px;
-            background: #feca57;
+            background: #ffa502;
             display: block;
             margin: 1rem auto;
             border-radius: 3px;
@@ -160,7 +159,7 @@
             backdrop-filter: blur(5px);
         }
         .category-btn:hover, .category-btn.active {
-            background: #feca57;
+            background: #ffa502;
             color: #333;
             transform: scale(1.05);
         }
@@ -189,8 +188,6 @@
         }
         .item-img {
             height: 200px;
-            background: #ccc;
-            position: relative;
             overflow: hidden;
         }
         .item-img img {
@@ -219,12 +216,12 @@
         .item-price {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #feca57;
+            color: #ffa502;
         }
         .view-details {
             display: inline-block;
             margin-top: 1rem;
-            background: #feca57;
+            background: #ffa502;
             color: #333;
             padding: 0.6rem 1.5rem;
             border-radius: 25px;
@@ -232,7 +229,8 @@
             transition: all 0.3s;
         }
         .view-details:hover {
-            background: #ff9f43;
+            background: #ff4757;
+            color: #fff;
             transform: scale(1.05);
         }
 
@@ -261,9 +259,10 @@
         }
         .modal-header {
             padding: 2rem;
-            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            background: linear-gradient(135deg, #ff4757, #ffa502);
             color: #fff;
             text-align: center;
+            position: relative;
         }
         .modal-body {
             padding: 2rem;
@@ -285,7 +284,7 @@
         }
         .modal-price {
             font-size: 2.2rem;
-            color: #ff6b6b;
+            color: #ff4757;
             font-weight: 700;
         }
         .close-modal {
@@ -342,7 +341,7 @@
         .contact-item i {
             font-size: 2rem;
             margin-bottom: 1rem;
-            color: #feca57;
+            color: #ffa502;
         }
         .social-links {
             display: flex;
@@ -352,7 +351,7 @@
         .social-links a {
             width: 50px;
             height: 50px;
-            background: #feca57;
+            background: #ffa502;
             color: #333;
             border-radius: 50%;
             display: flex;
@@ -363,7 +362,8 @@
         }
         .social-links a:hover {
             transform: translateY(-5px) rotate(360deg);
-            background: #ff9f43;
+            background: #ff4757;
+            color: #fff;
         }
 
         /* Footer */
@@ -388,7 +388,6 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        /* Responsivo */
         @media (max-width: 768px) {
             .hero h1 { font-size: 3rem; }
             .nav-links { display: none; }
@@ -402,10 +401,10 @@
     <!-- Header -->
     <header>
         <nav>
-            <div class="logo">Saborosa</div>
+            <div class="logo">Lanchonete do Zé</div>
             <div class="nav-links">
                 <a href="#home">Início</a>
-                <a href="#menu">Menu</a>
+                <a href="#menu">Cardápio</a>
                 <a href="#contact">Contato</a>
             </div>
         </nav>
@@ -414,8 +413,8 @@
     <!-- Hero -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Bem-vindo à Saborosa</h1>
-            <p>O melhor da comida rápida com sabor inesquecível!</p>
+            <h1>Lanchonete do Zé</h1>
+            <p>Sabor de verdade, preço de amigo!</p>
             <a href="#menu" class="cta-btn">Ver Cardápio</a>
         </div>
     </section>
@@ -427,46 +426,85 @@
         <div class="categories">
             <button class="category-btn active" data-category="all">Todos</button>
             <button class="category-btn" data-category="lanches">Lanches</button>
+            <button class="category-btn" data-category="porcoes">Porções</button>
             <button class="category-btn" data-category="bebidas">Bebidas</button>
             <button class="category-btn" data-category="sobremesas">Sobremesas</button>
         </div>
 
         <div class="menu-grid">
-            <!-- Lanches -->
+
+            <!-- LANCHES -->
             <div class="menu-item" data-category="lanches">
                 <div class="item-img">
                     <img src="https://images.unsplash.com/photo-1565299507175-4ee0ea4db0d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="X-Burger">
                 </div>
                 <div class="item-content">
-                    <h3 class="item-title">X-Burger Especial</h3>
-                    <p class="item-desc">Hambúrguer 180g, queijo, alface, tomate, maionese caseira</p>
-                    <div class="item-price">R$ 22,90</div>
+                    <h3 class="item-title">X-Burger Clássico</h3>
+                    <p class="item-desc">Hambúrguer 150g, queijo, alface, tomate, maionese</p>
+                    <div class="item-price">R$ 18,90</div>
                     <a href="#" class="view-details" data-modal="modal1">Ver detalhes</a>
                 </div>
             </div>
 
             <div class="menu-item" data-category="lanches">
                 <div class="item-img">
-                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457c3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="X-Salada">
+                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457c3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="X-Bacon">
                 </div>
                 <div class="item-content">
-                    <h3 class="item-title">X-Salada Premium</h3>
-                    <p class="item-desc">Dois hambúrgueres, cheddar, bacon crocante, vegetais frescos</p>
-                    <div class="item-price">R$ 28,90</div>
+                    <h3 class="item-title">X-Bacon Crocante</h3>
+                    <p class="item-desc">Dois hambúrgueres, bacon, cheddar, cebola caramelizada</p>
+                    <div class="item-price">R$ 24,90</div>
                     <a href="#" class="view-details" data-modal="modal2">Ver detalhes</a>
                 </div>
             </div>
 
-            <!-- Bebidas -->
-            <div class="menu-item" data-category="bebidas">
+            <div class="menu-item" data-category="lanches">
                 <div class="item-img">
-                    <img src="https://images.unsplash.com/photo-1622480768317-3e3e2e96e2a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Milkshake">
+                    <img src="https://images.unsplash.com/photo-1607013251379-e6eecfffe234?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="X-Frango">
                 </div>
                 <div class="item-content">
-                    <h3 class="item-title">Milkshake Gourmet</h3>
-                    <p class="item-desc">Sabores: Chocolate, Morango, Baunilha, Ovomaltine</p>
-                    <div class="item-price">R$ 14,90</div>
+                    <h3 class="item-title">X-Frango Grelhado</h3>
+                    <p class="item-desc">Peito de frango grelhado, queijo, alface, molho especial</p>
+                    <div class="item-price">R$ 19,90</div>
                     <a href="#" class="view-details" data-modal="modal3">Ver detalhes</a>
+                </div>
+            </div>
+
+            <!-- PORÇÕES -->
+            <div class="menu-item" data-category="porcoes">
+                <div class="item-img">
+                    <img src="https://images.unsplash.com/photo-1626645735306-4a3d5c39f97f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Batata Frita">
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Batata Frita Grande</h3>
+                    <p class="item-desc">Crocante por fora, macia por dentro, 300g</p>
+                    <div class="item-price">R$ 15,90</div>
+                    <a href="#" class="view-details" data-modal="modal4">Ver detalhes</a>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="porcoes">
+                <div class="item-img">
+                    <img src="https://images.unsplash.com/photo-1630431229926-9e0a4e0c1d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Nuggets">
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Nuggets (8 unid.)</h3>
+                    <p class="item-desc">Frango empanado com molho barbecue ou mostarda</p>
+                    <div class="item-price">R$ 18,90</div>
+                    <a href="#" class="view-details" data-modal="modal5">Ver detalhes</a>
+                </div>
+            </div>
+
+            <!-- BEBIDAS -->
+            <div class="menu-item" data-category="bebidas">
+                <div class="item-img">
+                    <img src="https://images.unsplash.com/photo-1622480768317-3e3e2e96e2a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Refrigerante">
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Refrigerante Lata</h3>
+                    <p class="item-desc">Coca-Cola, Guaraná, Sprite, Fanta</p>
+                    <div class="item-price">R$ 5,90</div>
+                    <a href="#" class="view-details" data-modal="modal6">Ver detalhes</a>
                 </div>
             </div>
 
@@ -476,82 +514,194 @@
                 </div>
                 <div class="item-content">
                     <h3 class="item-title">Suco Natural 500ml</h3>
-                    <p class="item-desc">Laranja, limão, abacaxi, melancia - feito na hora</p>
+                    <p class="item-desc">Laranja, limão, abacaxi ou melancia</p>
                     <div class="item-price">R$ 9,90</div>
-                    <a href="#" class="view-details" data-modal="modal4">Ver detalhes</a>
+                    <a href="#" class="view-details" data-modal="modal7">Ver detalhes</a>
                 </div>
             </div>
 
-            <!-- Sobremesas -->
+            <!-- SOBREMESAS -->
             <div class="menu-item" data-category="sobremesas">
                 <div class="item-img">
                     <img src="https://images.unsplash.com/photo-1563805042-7684c7f057f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Brownie">
                 </div>
                 <div class="item-content">
                     <h3 class="item-title">Brownie com Sorvete</h3>
-                    <p class="item-desc">Brownie quente com bola de sorvete de creme</p>
-                    <div class="item-price">R$ 18,90</div>
-                    <a href="#" class="view-details" data-modal="modal5">Ver detalhes</a>
+                    <p class="item-desc">Brownie quente + bola de creme</p>
+                    <div class="item-price">R$ 16,90</div>
+                    <a href="#" class="view-details" data-modal="modal8">Ver detalhes</a>
                 </div>
             </div>
 
             <div class="menu-item" data-category="sobremesas">
                 <div class="item-img">
-                    <img src="https://images.unsplash.com/photo-1622621736088-4231d1a7f2fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Petit Gateau">
+                    <img src="https://images.unsplash.com/photo-1622621736088-4231d1a7f2fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Milkshake">
                 </div>
                 <div class="item-content">
-                    <h3 class="item-title">Petit Gateau</h3>
-                    <p class="item-desc">Bolo quente com recheio cremoso de chocolate</p>
-                    <div class="item-price">R$ 21,90</div>
-                    <a href="#" class="view-details" data-modal="modal6">Ver detalhes</a>
+                    <h3 class="item-title">Milkshake 400ml</h3>
+                    <p class="item-desc">Chocolate, morango ou baunilha</p>
+                    <div class="item-price">R$ 13,90</div>
+                    <a href="#" class="view-details" data-modal="modal9">Ver detalhes</a>
                 </div>
             </div>
+
         </div>
     </section>
 
-    <!-- Modais -->
+    <!-- MODAIS (Exemplo completo para os 9 itens) -->
+    <!-- Modal 1 -->
     <div class="modal" id="modal1">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>X-Burger Especial</h3>
+                <h3>X-Burger Clássico</h3>
                 <span class="close-modal">&times;</span>
             </div>
             <div class="modal-body">
                 <img src="https://images.unsplash.com/photo-1565299507175-4ee0ea4db0d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="X-Burger" class="modal-img">
-                <h4 class="modal-title">X-Burger Especial</h4>
-                <p class="modal-desc">Nosso clássico: hambúrguer suculento de 180g grelhado na chapa, queijo derretido, alface crocante, tomate fatiado, cebola caramelizada e nossa maionese caseira especial. Acompanha pão brioche macio.</p>
-                <div class="modal-price">R$ 22,90</div>
+                <h4 class="modal-title">X-Burger Clássico</h4>
+                <p class="modal-desc">Hambúrguer suculento de 150g, queijo derretido, alface fresca, tomate maduro, cebola e nossa maionese caseira. Pão brioche macio.</p>
+                <div class="modal-price">R$ 18,90</div>
             </div>
         </div>
     </div>
 
+    <!-- Modal 2 -->
     <div class="modal" id="modal2">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>X-Salada Premium</h3>
+                <h3>X-Bacon Crocante</h3>
                 <span class="close-modal">&times;</span>
             </div>
             <div class="modal-body">
-                <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457c3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="X-Salada" class="modal-img">
-                <h4 class="modal-title">X-Salada Premium</h4>
-                <p class="modal-desc">Dupla de hambúrgueres 120g, cheddar cremoso, bacon crocante, alface, tomate, picles, cebola roxa e molho especial. Pão australiano com gergelim.</p>
-                <div class="modal-price">R$ 28,90</div>
+                <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457c3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="X-Bacon" class="modal-img">
+                <h4 class="modal-title">X-Bacon Crocante</h4>
+                <p class="modal-desc">Dois hambúrgueres 120g, bacon frito na hora, cheddar cremoso, cebola caramelizada e molho barbecue. Irresistível!</p>
+                <div class="modal-price">R$ 24,90</div>
             </div>
         </div>
     </div>
 
-    <!-- Outros modais seguem o mesmo padrão... (para brevidade, incluo apenas 2) -->
-    <!-- Repita para modal3 até modal6 com os dados correspondentes -->
+    <!-- Modal 3 -->
+    <div class="modal" id="modal3">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>X-Frango Grelhado</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1607013251379-e6eecfffe234?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="X-Frango" class="modal-img">
+                <h4 class="modal-title">X-Frango Grelhado</h4>
+                <p class="modal-desc">Peito de frango grelhado com ervas, queijo, alface, tomate e molho de iogurte com alho. Leve e saboroso!</p>
+                <div class="modal-price">R$ 19,90</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4 -->
+    <div class="modal" id="modal4">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Batata Frita Grande</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1626645735306-4a3d5c39f97f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Batata" class="modal-img">
+                <h4 class="modal-title">Batata Frita Grande</h4>
+                <p class="modal-desc">300g de batata frita crocante, dourada e sequinha. Perfeita para compartilhar!</p>
+                <div class="modal-price">R$ 15,90</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5 -->
+    <div class="modal" id="modal5">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Nuggets (8 unid.)</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1630431229926-9e0a4e0c1d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Nuggets" class="modal-img">
+                <h4 class="modal-title">Nuggets (8 unid.)</h4>
+                <p class="modal-desc">Frango empanado crocante. Acompanha molho barbecue ou mostarda e mel.</p>
+                <div class="modal-price">R$ 18,90</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6 -->
+    <div class="modal" id="modal6">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Refrigerante Lata</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1622480768317-3e3e2e96e2a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Refrigerante" class="modal-img">
+                <h4 class="modal-title">Refrigerante Lata 350ml</h4>
+                <p class="modal-desc">Coca-Cola, Guaraná Antarctica, Sprite ou Fanta Laranja. Geladinho!</p>
+                <div class="modal-price">R$ 5,90</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 7 -->
+    <div class="modal" id="modal7">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Suco Natural 500ml</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1544145945-f1731c0e7958?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Suco" class="modal-img">
+                <h4 class="modal-title">Suco Natural 500ml</h4>
+                <p class="modal-desc">Feito na hora: laranja, limão, abacaxi ou melancia. 100% natural.</p>
+                <div class="modal-price">R$ 9,90</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 8 -->
+    <div class="modal" id="modal8">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Brownie com Sorvete</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1563805042-7684c7f057f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Brownie" class="modal-img">
+                <h4 class="modal-title">Brownie com Sorvete</h4>
+                <p class="modal-desc">Brownie quente recém-assado com bola de sorvete de creme. Perfeito final!</p>
+                <div class="modal-price">R$ 16,90</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 9 -->
+    <div class="modal" id="modal9">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Milkshake 400ml</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <img src="https://images.unsplash.com/photo-1622621736088-4231d1a7f2fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Milkshake" class="modal-img">
+                <h4 class="modal-title">Milkshake 400ml</h4>
+                <p class="modal-desc">Cremoso e gelado. Sabores: chocolate, morango ou baunilha.</p>
+                <div class="modal-price">R$ 13,90</div>
+            </div>
+        </div>
+    </div>
 
     <!-- Contato -->
     <section class="contact" id="contact">
         <div class="contact-container">
-            <h2>Fale Conosco</h2>
+            <h2>Fale com a gente!</h2>
             <div class="contact-info">
                 <div class="contact-item">
                     <i class="fas fa-phone"></i>
                     <h4>Telefone</h4>
-                    <p>(11) 98765-4321</p>
+                    <p>(11) 3456-7890</p>
                 </div>
                 <div class="contact-item">
                     <i class="fab fa-whatsapp"></i>
@@ -560,15 +710,15 @@
                 </div>
             </div>
             <div class="social-links">
-                <a href="https://instagram.com/saborosa" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://facebook.com/saborosa" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://instagram.com/lanchonetedoze" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://facebook.com/lanchonetedoze" target="_blank"><i class="fab fa-facebook"></i></a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Lanchonete Saborosa. Todos os direitos reservados.</p>
+        <p>&copy; 2025 Lanchonete do Zé. Todos os direitos reservados.</p>
     </footer>
 
     <script>
