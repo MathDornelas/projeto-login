@@ -306,8 +306,33 @@
 
     <section id="porcoes" class="menu-section hidden">
         <h3>🍟 Porções e Fritas</h3>
-        <p class="placeholder">Conteúdo de Porções em Breve...</p>
+        <div class="product-grid">
+             <div class="product-card">
+                 <img src="https://via.placeholder.com/300x200/FF8C00/FFFFFF?text=Cheddar+Bacon+Fries" alt="Batata Cheddar e Bacon">
+                <h4>Batata Cheddar & Bacon</h4>
+                <p>Fritas crocantes cobertas com cheddar cremoso e cubos de bacon fritos.</p>
+                <span class="price">R$ 28,00</span>
+                <a href="https://wa.me/SEU_NUMERO?text=Ol%C3%A1%2C%20gostaria%20de%20pedir%20a%20Batata%20Cheddar%20e%20Bacon!" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</a>
+            </div>
+            
+            <div class="product-card">
+                 <img src="https://via.placeholder.com/300x200/B0C4DE/1E1E1E?text=Onion+Rings" alt="Anéis de Cebola">
+                <h4>Anéis de Cebola Crocantes</h4>
+                <p>Porção de anéis de cebola empanados, fritos e sequinhos. Acompanha molho da casa.</p>
+                <span class="price">R$ 22,00</span>
+                <a href="https://wa.me/SEU_NUMERO?text=Ol%C3%A1%2C%20gostaria%20de%20pedir%20os%20An%C3%A9is%20de%20Cebola!" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</a>
+            </div>
+
+            <div class="product-card">
+                 <img src="https://via.placeholder.com/300x200/6A5ACD/FFFFFF?text=Petisco+Mix" alt="Mix de Petiscos">
+                <h4>Mix de Petiscos</h4>
+                <p>Um combo com mini-churros, polenta frita e aipim. Perfeito para compartilhar.</p>
+                <span class="price">R$ 35,00</span>
+                <a href="https://wa.me/SEU_NUMERO?text=Ol%C3%A1%2C%20gostaria%20de%20pedir%20o%20Mix%20de%20Petiscos!" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</a>
+            </div>
+        </div>
     </section>
+
     <section id="bebidas" class="menu-section hidden">
         <h3>🥤 Bebidas e Shakes</h3>
         <p class="placeholder">Conteúdo de Bebidas em Breve...</p>
@@ -371,8 +396,8 @@
                 });
             });
 
-            // Opcional: Garante que a primeira seção seja exibida ao carregar
-            const firstSection = document.querySelector('.menu-section');
+            // Garante que a primeira seção seja exibida ao carregar
+            const firstSection = document.getElementById('sanduiches'); // Mantenha Sanduíches como a seção inicial
             if(firstSection) {
                 firstSection.classList.add('active');
                 firstSection.classList.remove('hidden');
