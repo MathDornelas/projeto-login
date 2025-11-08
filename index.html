@@ -230,7 +230,7 @@
     .modal-header {
       padding: 1.5rem;
       border-bottom: 1px solid #eee;
-      position: relative.5;
+      position: relative;
     }
 
     .close-modal {
@@ -273,24 +273,6 @@
       color: #555;
       line-height: 1.7;
       margin-bottom: 1.5rem;
-    }
-
-    .add-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      width: 100%;
-      transition: 0.3s;
-    }
-
-    .add-btn:hover {
-      background: #e55a2b;
-      transform: translateY(-2px);
     }
 
     footer {
@@ -401,7 +383,7 @@
 
   </div>
 
-  <!-- MODAL -->
+  <!-- MODAL (sem botão de carrinho) -->
   <div class="modal" id="modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -412,17 +394,15 @@
         <img src="" alt="" class="modal-img" id="modal-img">
         <div class="modal-price" id="modal-price"></div>
         <p class="modal-desc" id="modal-desc"></p>
-        <button class="add-btn"></button>
       </div>
     </div>
   </div>
 
   <footer>
-    <p>© 2025 Sabor na Rua • Feito com carinho e hambúrguer</p>
+    <p>©️ 2025 Sabor na Rua • Feito com carinho e hambúrguer</p>
   </footer>
 
   <script>
-    // Dados dos itens
     const items = {
       classic: {
         name: "Classic Burger",
@@ -461,23 +441,20 @@
       btn.addEventListener('click', () => {
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
         document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
         document.getElementById(btn.dataset.section).classList.add('active');
       });
     });
 
-    // Abrir modal
+    // Modal
     document.querySelectorAll('.menu-item').forEach(item => {
       item.addEventListener('click', () => {
         const key = item.dataset.item;
         const data = items[key];
-
         document.getElementById('modal-title').textContent = data.name;
         document.getElementById('modal-price').textContent = data.price;
         document.getElementById('modal-desc').textContent = data.desc;
         document.getElementById('modal-img').src = data.img;
-
         document.getElementById('modal').classList.add('active');
       });
     });
