@@ -1,437 +1,99 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardápio - Lanchonete do Zé</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ff4757, #ffa502);
-            color: #fff;
-            min-height: 100vh;
-        }
-        a { text-decoration: none; color: inherit; }
-
-        /* Header */
-        header {
-            background: rgba(0,0,0,0.3);
-            padding: 1rem 2rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-        header.scrolled { background: rgba(0,0,0,0.7); }
-        .logo { font-family: 'Pacifico', cursive; font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a { font-weight: 600; transition: 0.3s; }
-        .nav-links a:hover { color: #ffa502; transform: translateY(-3px); }
-
-        /* Hero */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: url('https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover;
-            position: relative;
-        }
-        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); }
-        .hero-content { position: relative; z-index: 2; max-width: 800px; }
-        .hero h1 { font-size: 4.5rem; margin-bottom: 1rem; animation: fadeInDown 1s; }
-        .hero p { font-size: 1.5rem; margin-bottom: 2rem; animation: fadeInUp 1s 0.3s forwards; opacity: 0; }
-        .cta-btn {
-            background: #ffa502; color: #333; padding: 1rem 2.5rem; border-radius: 50px;
-            font-weight: 700; font-size: 1.2rem; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            animation: fadeInUp 1s 0.6s forwards; opacity: 0;
-        }
-        .cta-btn:hover { transform: translateY(-5px); background: #ff4757; color: #fff; }
-
-        /* Menu */
-        .menu { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 3rem; margin-bottom: 3rem; }
-        .section-title::after { content: ''; width: 100px; height: 5px; background: #ffa502; display: block; margin: 1rem auto; border-radius: 3px; }
-
-        .categories {
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem;
-        }
-        .category-btn {
-            background: rgba(255,255,255,0.2); border: 2px solid #fff; color: #fff;
-            padding: 0.8rem 1.8rem; border-radius: 30px; font-weight: 600; cursor: pointer;
-            transition: 0.3s; backdrop-filter: blur(5px);
-        }
-        .category-btn:hover, .category-btn.active { background: #ffa502; color: #333; transform: scale(1.05); }
-
-        .menu-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
-        }
-        .menu-item {
-            background: rgba(255,255,255,0.15); border-radius: 20px; overflow: hidden;
-            transition: 0.4s; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            opacity: 0; transform: translateY(30px);
-        }
-        .menu-item.visible { opacity: 1; transform: translateY(0); }
-        .menu-item:hover { transform: translateY(-15px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-
-        .item-img { height: 200px; overflow: hidden; }
-        .item-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .menu-item:hover .item-img img { transform: scale(1.1); }
-
-        .item-content { padding: 1.5rem; text-align: center; }
-        .item-title { font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700; }
-        .item-desc { font-size: 0.95rem; margin-bottom: 1rem; opacity: 0.9; }
-        .item-price { font-size: 1.8rem; font-weight: 700; color: #ffa502; }
-        .view-details {
-            display: inline-block; margin-top: 1rem; background: #ffa502; color: #333;
-            padding: 0.6rem 1.5rem; border-radius: 25px; font-weight: 600; transition: 0.3s;
-        }
-        .view-details:hover { background: #ff4757; color: #fff; transform: scale(1.05); }
-
-        /* Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; padding: 2rem; }
-        .modal.active { display: flex; }
-        .modal-content { background: #fff; color: #333; max-width: 600px; width: 100%; border-radius: 20px; overflow: hidden; animation: zoomIn 0.4s; }
-        .modal-header { padding: 2rem; background: linear-gradient(135deg, #ff4757, #ffa502); color: #fff; text-align: center; position: relative; }
-        .modal-body { padding: 2rem; }
-        .modal-img { width: 100%; height: 250px; object-fit: cover; border-radius: 15px; margin-bottom: 1.5rem; }
-        .modal-title { font-size: 2rem; margin-bottom: 1rem; }
-        .modal-desc { line-height: 1.6; margin-bottom: 1.5rem; }
-        .modal-price { font-size: 2.2rem; color: #ff4757; font-weight: 700; }
-        .close-modal {
-            position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.3);
-            width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; cursor: pointer; font-size: 1.5rem; transition: 0.3s;
-        }
-        .close-modal:hover { background: rgba(255,255,255,0.5); }
-
-        /* Contato */
-        .contact { padding: 6rem 2rem; background: rgba(0,0,0,0.2); text-align: center; }
-        .contact-container { max-width: 1200px; margin: 0 auto; }
-        .contact h2 { font-size: 3rem; margin-bottom: 2rem; }
-        .contact-info { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin-bottom: 3rem; }
-        .contact-item { background: rgba(255,255,255,0.2); padding: 1.5rem 2.5rem; border-radius: 15px; min-width: 200px; transition: 0.3s; backdrop-filter: blur(5px); }
-        .contact-item:hover { transform: translateY(-10px); }
-        .contact-item i { font-size: 2rem; margin-bottom: 1rem; color: #ffa502; }
-        .social-links { display: flex; justify-content: center; gap: 1.5rem; }
-        .social-links a { width: 50px; height: 50px; background: #ffa502; color: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; transition: 0.3s; }
-        .social-links a:hover { background: #ff4757; color: #fff; transform: translateY(-5px) rotate(360deg); }
-
-        footer { background: rgba(0,0,0,0.5); padding: 2rem; text-align: center; font-size: 0.9rem; }
-
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .nav-links { display: none; }
-            .menu-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+    <title>🍔 Menu Digital - Lanchonete Moderna</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <nav>
-            <div class="logo">Lanchonete do Zé</div>
-            <div class="nav-links">
-                <a href="#home">Início</a>
-                <a href="#menu">Cardápio</a>
-                <a href="#contact">Contato</a>
-            </div>
-        </nav>
+    <header class="hero-section">
+        <h1 class="logo">LANCHONETE ⚡️ FAST</h1>
+        <p class="slogan">O Sabor Que Você Merece!</p>
     </header>
 
-    <!-- Hero -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Lanchonete do Zé</h1>
-            <p>O melhor lanche da cidade, feito com carinho!</p>
-            <a href="#menu" class="cta-btn">Ver Cardápio</a>
+    <main class="menu-categories">
+        <h2>Selecione a Categoria</h2>
+        <div class="category-grid">
+            <button class="category-btn" data-target="sanduiches"><i class="fas fa-burger"></i> Sanduíches Especiais</button>
+            <button class="category-btn" data-target="classicos"><i class="fas fa-hamburger"></i> Hambúrgueres Clássicos</button>
+            <button class="category-btn" data-target="porcoes"><i class="fas fa-utensils"></i> Porções e Fritas</button>
+            <button class="category-btn" data-target="bebidas"><i class="fas fa-cocktail"></i> Bebidas e Shakes</button>
+            <button class="category-btn" data-target="sobremesas"><i class="fas fa-ice-cream"></i> Sobremesas</button>
         </div>
+    </main>
+
+    <section id="sanduiches" class="menu-section active">
+        <h3>🥪 Sanduíches Especiais</h3>
+        <div class="product-grid">
+            <div class="product-card">
+                
+                <h4>Chef's Ultimate</h4>
+                <p>Pão brioche, 180g de blend premium, queijo gouda, geleia de bacon.</p>
+                <span class="price">R$ 38,00</span>
+                <a href="https://wa.me/SEU_NUMERO?text=Ol%C3%A1%2C%20gostaria%20de%20pedir%20o%20Chef%27s%20Ultimate!" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</a>
+            </div>
+             <div class="product-card">
+                
+                <h4>Chicken Fusion</h4>
+                <p>Pão australiano, filé de frango crocante, maionese verde artesanal.</p>
+                <span class="price">R$ 32,00</span>
+                <a href="https://wa.me/SEU_NUMERO?text=Ol%C3%A1%2C%20gostaria%20de%20pedir%20o%20Chicken%20Fusion!" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</a>
+            </div>
+            </div>
     </section>
 
-    <!-- Menu -->
-    <section class="menu" id="menu">
-        <h2 class="section-title">Nosso Cardápio Completo</h2>
-        
-        <div class="categories">
-            <button class="category-btn active" data-category="all">Todos</button>
-            <button class="category-btn" data-category="lanches">Lanches</button>
-            <button class="category-btn" data-category="porcoes">Porções</button>
-            <button class="category-btn" data-category="bebidas">Bebidas</button>
-            <button class="category-btn" data-category="sobremesas">Sobremesas</button>
-        </div>
-
-        <div class="menu-grid">
-
-            <!-- LANCHES (6) -->
-            <div class="menu-item" data-category="lanches">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1565299507175-4ee0ea4db0d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="X-Burger"></div>
-                <div class="item-content">
-                    <h3 class="item-title">X-Burger Clássico</h3>
-                    <p class="item-desc">Hambúrguer 150g, queijo, alface, tomate</p>
-                    <div class="item-price">R$ 18,90</div>
-                    <a href="#" class="view-details" data-modal="m1">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="menu-item" data-category="lanches">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1571091718767-18b5b1457c3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="X-Bacon"></div>
-                <div class="item-content">
-                    <h3 class="item-title">X-Bacon Premium</h3>
-                    <p class="item-desc">Dois hambúrgueres, bacon, cheddar</p>
-                    <div class="item-price">R$ 24,90</div>
-                    <a href="#" class="view-details" data-modal="m2">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="menu-item" data-category="lanches">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1607013251379-e6eecfffe234?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="X-Frango"></div>
-                <div class="item-content">
-                    <h3 class="item-title">X-Frango Grelhado</h3>
-                    <p class="item-desc">Frango suculento, queijo, vegetais</p>
-                    <div class="item-price">R$ 19,90</div>
-                    <a href="#" class="view-details" data-modal="m3">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="menu-item" data-category="lanches">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1626645735306-4a3d5c39f97f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Hot Dog"></div>
-                <div class="item-content">
-                    <h3 class="item-title">Hot Dog Completo</h3>
-                    <p class="item-desc">Salsicha, milho, batata palha, molhos</p>
-                    <div class="item-price">R$ 14,90</div>
-                    <a href="#" class="view-details" data-modal="m4">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="menu-item" data-category="lanches">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1599599810694-b5b37304c041?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Misto Quente"></div>
-                <div class="item-content">
-                    <h3 class="item-title">Misto Quente</h3>
-                    <p class="item-desc">Pão de forma, presunto, queijo, orégano</p>
-                    <div class="item-price">R$ 9,90</div>
-                    <a href="#" class="view-details" data-modal="m5">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="menu-item" data-category="lanches">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1626082927389-7e8e4e0c8c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pastel"></div>
-                <div class="item-content">
-                    <h3 class="item-title">Pastel de Carne</h3>
-                    <p class="item-desc">Massa crocante, recheio suculento</p>
-                    <div class="item-price">R$ 8,90</div>
-                    <a href="#" class="view-details" data-modal="m6">Ver detalhes</a>
-                </div>
-            </div>
-
-            <!-- PORÇÕES (4) -->
-            <div class="menu-item" data-category="porcoes">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1630431229926-9e0a4e0c1d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Batata Frita"></div>
-                <div class="item-content">
-                    <h3 class="item-title">Batata Frita G</h3>
-                    <p class="item-desc">300g crocante, sequinha</p>
-                    <div class="item-price">R$ 15,90</div>
-                    <a href="#" class="view-details" data-modal="m7">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="menu-item" data-category="porcoes">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1626645735306-4a3d5c39f97f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Nuggets"></div>
-                <div class="item-content">
-                    <h3 class="item-title">Nuggets (10 un)</h3>
-                    <p class="item-desc">Frango empanado + molho</p>
-                    <div class="item-price">R$ 22,90</div>
-                    <a href="#" class="view-details" data-modal="m8">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="menu-item" data-category="porcoes">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1606890658317-d89a5b7b3e8a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Anéis de Cebola"></div>
-                <div class="item-content">
-                    <h3 class="item-title">Anéis de Cebola</h3>
-                    <p class="item-desc">Crocantes, dourados</p>
-                    <div class="item-price">R$ 18,90</div>
-                    <a href="#" class="view-details" data-modal="m9">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="menu-item" data-category="porcoes">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1625937286907-0c7d7e3d0e5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Polenta Frita"></div>
-                <div class="item-content">
-                    <h3 class="item-title">Polenta Frita</h3>
-                    <p class="item-desc">Palitos crocantes</p>
-                    <div class="item-price">R$ 16,90</div>
-                    <a href="#" class="view-details" data-modal="m10">Ver detalhes</a>
-                </div>
-            </div>
-
-            <!-- BEBIDAS (3) -->
-            <div class="menu-item" data-category="bebidas">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1622480768317-3e3e2e96e2a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Refrigerante"></div>
-                <div class="item-content">
-                    <h3 class="item-title">Refrigerante Lata</h3>
-                    <p class="item-desc">Coca, Guaraná, Sprite</p>
-                    <div class="item-price">R$ 5,90</div>
-                    <a href="#" class="view-details" data-modal="m11">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="menu-item" data-category="bebidas">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1544145945-f1731c0e7958?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Suco"></div>
-                <div class="item-content">
-                    <h3 class="item-title">Suco Natural 500ml</h3>
-                    <p class="item-desc">Laranja, limão, abacaxi</p>
-                    <div class="item-price">R$ 9,90</div>
-                    <a href="#" class="view-details" data-modal="m12">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="menu-item" data-category="bebidas">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Água"></div>
-                <div class="item-content">
-                    <h3 class="item-title">Água Mineral</h3>
-                    <p class="item-desc">Com ou sem gás</p>
-                    <div class="item-price">R$ 3,90</div>
-                    <a href="#" class="view-details" data-modal="m13">Ver detalhes</a>
-                </div>
-            </div>
-
-            <!-- SOBREMESAS (3) -->
-            <div class="menu-item" data-category="sobremesas">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1563805042-7684c7f057f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Brownie"></div>
-                <div class="item-content">
-                    <h3 class="item-title">Brownie com Sorvete</h3>
-                    <p class="item-desc">Quente + bola de creme</p>
-                    <div class="item-price">R$ 16,90</div>
-                    <a href="#" class="view-details" data-modal="m14">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="menu-item" data-category="sobremesas">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1622621736088-4231d1a7f2fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Milkshake"></div>
-                <div class="item-content">
-                    <h3 class="item-title">Milkshake 400ml</h3>
-                    <p class="item-desc">Chocolate, morango, baunilha</p>
-                    <div class="item-price">R$ 13,90</div>
-                    <a href="#" class="view-details" data-modal="m15">Ver detalhes</a>
-                </div>
-            </div>
-
-            <div class="menu-item" data-category="sobremesas">
-                <div class="item-img"><img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Açaí"></div>
-                <div class="item-content">
-                    <h3 class="item-title">Açaí na Tigela 300ml</h3>
-                    <p class="item-desc">Granola, banana, leite em pó</p>
-                    <div class="item-price">R$ 17,90</div>
-                    <a href="#" class="view-details" data-modal="m16">Ver detalhes</a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- MODAIS (16 itens com IMAGENS) -->
-    <!-- Exemplo: m1 -->
-    <div class="modal" id="m1">
-        <div class="modal-content">
-            <div class="modal-header"><h3>X-Burger Clássico</h3><span class="close-modal">×</span></div>
-            <div class="modal-body">
-                <img src="https://images.unsplash.com/photo-1565299507175-4ee0ea4db0d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="" class="modal-img">
-                <h4 class="modal-title">X-Burger Clássico</h4>
-                <p class="modal-desc">Hambúrguer 150g suculento, queijo derretido, alface crocante, tomate maduro, cebola e maionese caseira. Pão brioche macio.</p>
-                <div class="modal-price">R$ 18,90</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Repetir para m2 a m16 com imagens e descrições -->
-    <!-- (Por brevidade, incluo apenas m1 e m16. Os outros seguem o mesmo padrão) -->
-
-    <div class="modal" id="m16">
-        <div class="modal-content">
-            <div class="modal-header"><h3>Açaí na Tigela</h3><span class="close-modal">×</span></div>
-            <div class="modal-body">
-                <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="" class="modal-img">
-                <h4 class="modal-title">Açaí na Tigela 300ml</h4>
-                <p class="modal-desc">Açaí cremoso batido na hora, com granola crocante, banana fatiada e leite em pó. Refrescante e saudável!</p>
-                <div class="modal-price">R$ 17,90</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contato -->
-    <section class="contact" id="contact">
-        <div class="contact-container">
-            <h2>Fale com a gente!</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <h4>Telefone</h4>
-                    <p>(11) 3456-7890</p>
-                </div>
-                <div class="contact-item">
-                    <i class="fab fa-whatsapp"></i>
-                    <h4>WhatsApp</h4>
-                    <p>(11) 98765-4321</p>
-                </div>
-            </div>
-            <div class="social-links">
-                <a href="https://instagram.com/lanchonetedoze" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://facebook.com/lanchonetedoze" target="_blank"><i class="fab fa-facebook"></i></a>
+    <section id="classicos" class="menu-section hidden">
+        <h3>🍔 Hambúrgueres Clássicos</h3>
+        <div class="product-grid">
+            <div class="product-card">
+                
+                <h4>X-Salada Tradicional</h4>
+                <p>O clássico que nunca falha. Pão, carne, queijo, alface e tomate.</p>
+                <span class="price">R$ 25,00</span>
+                <a href="https://wa.me/SEU_NUMERO?text=Ol%C3%A1%2C%20gostaria%20de%20pedir%20o%20X-Salada%20Tradicional!" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Pedir por WhatsApp</a>
             </div>
         </div>
     </section>
 
-    <footer>
-        <p>© 2025 Lanchonete do Zé. Todos os direitos reservados.</p>
+    <section id="porcoes" class="menu-section hidden">
+        <h3>🍟 Porções e Fritas</h3>
+        <p class="placeholder">Conteúdo de Porções em Breve...</p>
+    </section>
+    <section id="bebidas" class="menu-section hidden">
+        <h3>🥤 Bebidas e Shakes</h3>
+        <p class="placeholder">Conteúdo de Bebidas em Breve...</p>
+    </section>
+    <section id="sobremesas" class="menu-section hidden">
+        <h3>🍦 Sobremesas</h3>
+        <p class="placeholder">Conteúdo de Sobremesas em Breve...</p>
+    </section>
+
+    <footer class="contact-section">
+        <h3>Fale Conosco</h3>
+        <div class="contact-grid">
+            <a href="tel:+55XXSEU_TELEFONE" class="contact-item" target="_blank">
+                <i class="fas fa-phone"></i>
+                <span>(XX) SEU TELEFONE</span>
+            </a>
+            <a href="https://wa.me/SEU_NUMERO" class="contact-item" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </a>
+            <a href="https://instagram.com/SEU_INSTAGRAM" class="contact-item" target="_blank">
+                <i class="fab fa-instagram"></i>
+                <span>@seu_instagram</span>
+            </a>
+            <a href="https://facebook.com/SEU_FACEBOOK" class="contact-item" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+                <span>/SeuFacebook</span>
+            </a>
+        </div>
+        <p class="copyright">&copy; 2025 Lanchonete Fast. Todos os direitos reservados.</p>
     </footer>
 
-    <script>
-        // Scroll, Filtro, Modal, Animação (mesmo do anterior)
-        window.addEventListener('scroll', () => document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50));
-
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const cat = btn.dataset.category;
-                document.querySelectorAll('.menu-item').forEach((item, i) => {
-                    item.classList.remove('visible');
-                    if (cat === 'all' || item.dataset.category === cat) {
-                        setTimeout(() => item.classList.add('visible'), i * 100);
-                    }
-                });
-            });
-        });
-
-        document.querySelectorAll('.view-details').forEach(btn => {
-            btn.addEventListener('click', e => {
-                e.preventDefault();
-                document.getElementById(btn.dataset.modal).classList.add('active');
-            });
-        });
-
-        document.querySelectorAll('.close-modal, .modal').forEach(el => {
-            el.addEventListener('click', e => {
-                if (e.target === el || e.target.classList.contains('close-modal')) {
-                    el.closest('.modal').classList.remove('active');
-                }
-            });
-        });
-
-        new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')), { threshold: 0.1 })
-            .observe(document.querySelectorAll('.menu-item'));
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
