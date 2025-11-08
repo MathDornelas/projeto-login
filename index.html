@@ -1,40 +1,497 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela de Login</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="estilos/style.css">
-    <link rel="stylesheet" href="estilos/media-query.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sabor na Rua - Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF6B35;
+      --secondary: #F7931E;
+      --dark: #2D1B1B;
+      --light: #FFF8F0;
+      --gray: #F4F4F4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #FFF8F0 0%, #FFE5D9 100%);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+      opacity: 0.9;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      padding: 0 1rem;
+    }
+
+    .nav-btn {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.3rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .nav-btn.active, .nav-btn:hover {
+      background: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255,107,53,0.3);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .section {
+      display: none;
+      animation: fadeIn 0.6s ease-in;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin: 2rem 0 1.5rem;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .menu-item {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(255,107,53,0.15);
+    }
+
+    .item-img {
+      height: 180px;
+      background: var(--gray);
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .item-img::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.6));
+    }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--primary);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .item-info {
+      padding: 1.2rem;
+    }
+
+    .item-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .item-desc {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.8rem;
+    }
+
+    .item-price {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .item-price small {
+      font-size: 0.8rem;
+      color: #999;
+      font-weight: 400;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 24px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: modalPop 0.4s ease;
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #eee;
+      position: relative.5;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+    }
+
+    .modal-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+    }
+
+    .modal-title {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    .modal-price {
+      font-size: 1.8rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin: 1rem 0;
+    }
+
+    .modal-desc {
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .add-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: 0.3s;
+    }
+
+    .add-btn:hover {
+      background: #e55a2b;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #888;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 600px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <main>
-        <section id="login">
-            <div id="imagem">
-            </div>
-            <div id="formulario">
-                <h1>Login</h1>
-                <p>Seja bem-vindo(a) novamente. Faça login para acessar sua conta</p>
-                <form action="login.php" method="post" autocomplete="on">
-                    <div class="campo">
-                        <span class="material-symbols-outlined">person
-                        </span>
-                        <input type="email" name="login" id="ilogin" placeholder="seu e-mail" required>
-                         <label for="ilogin">login</label>
-                    </div>
-                    <div class="campo">
-                        <span class="material-symbols-outlined">key</span>
-                        <input type="password" name="senha" id="isenha" placeholder="sua senha" required>
-                        <label for="isenha">senha</label>
-                    </div>
-                    <input type="submit" value="Entrar">
-                    <a href="esqueci.html" class="botao">
-                        Esqueci a senha <span class="material-symbols-outlined">mail</span>
-                    </a>
-                </form>
-            </div>
-        </section>
-    </main>
+
+  <header>
+    <div class="logo">Sabor na Rua</div>
+    <p class="tagline">O melhor lanche da cidade, na palma da sua mão</p>
+  </header>
+
+  <nav>
+    <button class="nav-btn active" data-section="hamburgueres">Hambúrgueres</button>
+    <button class="nav-btn" data-section="acompanhamentos">Acompanhamentos</button>
+    <button class="nav-btn" data-section="bebidas">Bebidas</button>
+    <button class="nav-btn" data-section="sobremesas">Sobremesas</button>
+  </nav>
+
+  <div class="container">
+
+    <!-- HAMBÚRGUERES -->
+    <div id="hamburgueres" class="section active">
+      <h2 class="section-title">Hambúrgueres Artesanais</h2>
+      <div class="menu-grid">
+        <div class="menu-item" data-item="classic">
+          <div class="item-img" style="background-image: url('https://images.unsplash.com/photo-1565299507175-b9ac1979466d?w=400')"></div>
+          <div class="badge">Clássico</div>
+          <div class="item-info">
+            <div class="item-name">Classic Burger</div>
+            <div class="item-desc">Hambúrguer 180g, alface, tomate, cebola roxa, maionese da casa</div>
+            <div class="item-price">R$ 24,90</div>
+          </div>
+        </div>
+
+        <div class="menu-item" data-item="bacon">
+          <div class="item-img" style="background-image: url('https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400')"></div>
+          <div class="badge">Top</div>
+          <div class="item-info">
+            <div class="item-name">Bacon Supreme</div>
+            <div class="item-desc">Dois hambúrgueres, bacon crocante, cheddar derretido, barbecue</div>
+            <div class="item-price">R$ 32,90</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACOMPANHAMENTOS -->
+    <div id="acompanhamentos" class="section">
+      <h2 class="section-title">Acompanhamentos</h2>
+      <div class="menu-grid">
+        <div class="menu-item" data-item="batata">
+          <div class="item-img" style="background-image: url('https://images.unsplash.com/photo-1632412320086-3b72025c98f0?w=400')"></div>
+          <div class="item-info">
+            <div class="item-name">Batata Frita</div>
+            <div class="item-desc">Crocante por fora, macia por dentro. Com ou sem bacon</div>
+            <div class="item-price">R$ 14,90 <small>/ 300g</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BEBIDAS -->
+    <div id="bebidas" class="section">
+      <h2 class="section-title">Bebidas</h2>
+      <div class="menu-grid">
+        <div class="menu-item" data-item="refrigerante">
+          <div class="item-img" style="background: linear-gradient(45deg, #ff6b35, #f7931e);"></div>
+          <div class="item-info">
+            <div class="item-name">Refrigerante Lata</div>
+            <div class="item-desc">Coca-Cola, Guaraná, Sprite</div>
+            <div class="item-price">R$ 6,00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOBREMESAS -->
+    <div id="sobremesas" class="section">
+      <h2 class="section-title">Sobremesas</h2>
+      <div class="menu-grid">
+        <div class="menu-item" data-item="milkshake">
+          <div class="item-img" style="background-image: url('https://images.unsplash.com/photo-1577805947697-89e18249d767?w=400')"></div>
+          <div class="item-info">
+            <div class="item-name">Milkshake Gourmet</div>
+            <div class="item-desc">Chocolate, baunilha ou morango com cobertura</div>
+            <div class="item-price">R$ 16,90</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close-modal">&times;</button>
+        <h3 class="modal-title" id="modal-title"></h3>
+      </div>
+      <div class="modal-body">
+        <img src="" alt="" class="modal-img" id="modal-img">
+        <div class="modal-price" id="modal-price"></div>
+        <p class="modal-desc" id="modal-desc"></p>
+        <button class="add-btn">Adicionar ao Carrinho</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Sabor na Rua • Feito com carinho e hambúrguer</p>
+  </footer>
+
+  <script>
+    // Dados dos itens
+    const items = {
+      classic: {
+        name: "Classic Burger",
+        price: "R$ 24,90",
+        desc: "Hambúrguer 180g suculento, alface americana crocante, tomate fatiado, cebola roxa, picles e nossa maionese artesanal no pão brioche tostado.",
+        img: "https://images.unsplash.com/photo-1565299507175-b9ac1979466d?w=600"
+      },
+      bacon: {
+        name: "Bacon Supreme",
+        price: "R$ 32,90",
+        desc: "Dois hambúrgueres 150g, bacon defumado crocante, cheddar derretido, molho barbecue caseiro, alface e tomate no pão brioche.",
+        img: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=600"
+      },
+      batata: {
+        name: "Batata Frita",
+        price: "R$ 14,90",
+        desc: "300g de batata frita sequinha e crocante. Escolha: natural, com bacon ou com cheddar e bacon.",
+        img: "https://images.unsplash.com/photo-1632412320086-3b72025c98f0?w=600"
+      },
+      refrigerante: {
+        name: "Refrigerante Lata",
+        price: "R$ 6,00",
+        desc: "350ml gelado. Sabores: Coca-Cola, Guaraná Antarctica, Sprite.",
+        img: "https://images.unsplash.com/photo-1624555130581-1d9cca783bc0?w=600"
+      },
+      milkshake: {
+        name: "Milkshake Gourmet",
+        price: "R$ 16,90",
+        desc: "500ml cremoso com sorvete premium. Sabores: Chocolate Belga, Baunilha com Calda ou Morango com pedaços.",
+        img: "https://images.unsplash.com/photo-1577805947697-89e18249d767?w=600"
+      }
+    };
+
+    // Navegação
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+        document.getElementById(btn.dataset.section).classList.add('active');
+      });
+    });
+
+    // Abrir modal
+    document.querySelectorAll('.menu-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const key = item.dataset.item;
+        const data = items[key];
+
+        document.getElementById('modal-title').textContent = data.name;
+        document.getElementById('modal-price').textContent = data.price;
+        document.getElementById('modal-desc').textContent = data.desc;
+        document.getElementById('modal-img').src = data.img;
+
+        document.getElementById('modal').classList.add('active');
+      });
+    });
+
+    // Fechar modal
+    document.querySelector('.close-modal').addEventListener('click', () => {
+      document.getElementById('modal').classList.remove('active');
+    });
+
+    document.getElementById('modal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('modal')) {
+        document.getElementById('modal').classList.remove('active');
+      }
+    });
+  </script>
 </body>
 </html>
